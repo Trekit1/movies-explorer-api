@@ -10,16 +10,12 @@ const { errors } = require('celebrate');
 
 const { mongoURL } = require('./constants');
 
+mongoose.connect(mongoURL);
+
 require('dotenv').config();
 
 const app = express();
-const { PORT = 3000, NODE_ENV, MONGO_URL } = process.env;
-
-if (NODE_ENV === 'production') {
-  mongoose.connect(MONGO_URL);
-} else {
-  mongoose.connect(mongoURL);
-}
+const { PORT = 3000 } = process.env;
 
 const errorHandling = require('./middlewares/errorHandling');
 
