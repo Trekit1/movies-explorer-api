@@ -1,5 +1,7 @@
 const { celebrate, Joi } = require('celebrate');
 
+const mongoURL = 'mongodb://localhost:27017/moviesdb';
+
 const reg = /https?:\/\/(www\.)?([a-zA-Z0-9-._~:/?#@!$&'()+,;=]*)\.([a-zA-Z])#?/;
 
 const celebrateLogin = celebrate({
@@ -11,14 +13,14 @@ const celebrateLogin = celebrate({
 
 const celebrateUpdateInfo = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
   }),
 });
 
 const celebrateCreateUser = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -41,7 +43,7 @@ const celebrateCreateMovie = celebrate({
     trailerLink: Joi.string().required().regex(reg),
     thumbnail: Joi.string().required().regex(reg),
     owner: Joi.string().alphanum().length(24).hex(),
-    movieId: Joi.string().alphanum().length(24).hex(),
+    movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
@@ -49,6 +51,7 @@ const celebrateCreateMovie = celebrate({
 
 module.exports = {
   reg,
+  mongoURL,
   celebrateUpdateInfo,
   celebrateLogin,
   celebrateCreateUser,
