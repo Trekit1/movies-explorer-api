@@ -42,7 +42,6 @@ const celebrateCreateMovie = celebrate({
     image: Joi.string().required().regex(reg),
     trailerLink: Joi.string().required().regex(reg),
     thumbnail: Joi.string().required().regex(reg),
-    owner: Joi.string().alphanum().length(24).hex(),
     movieId: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
